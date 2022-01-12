@@ -1,0 +1,1 @@
+Creating an etch-a-sketch game for an odin project exercise
