@@ -6,6 +6,14 @@
 
 const gameCont = document.querySelector(".gamegrid");
 
+// START GAME ON ENTER KEY PRESS
+const inputBox = document.querySelector("#gridsize");
+inputBox.addEventListener("keyup", function(event){
+    if(event.key === "Enter"){
+        gameStart();
+    }
+});
+
 // REMOVE ALL GRID BOXES FROM GAME AREA
 function clearGrid(){
     document.querySelector(".gamegrid").innerHTML="";
@@ -37,35 +45,31 @@ function createGrid(a){
 }
 // CHECK IF SUBMITTED VALUE IS VALID
 function valueChecker(a){
-    if(typeof a === "string" || a instanceof String){
-        wrongValue();
+    const enteredValue = parseInt(a);
+    if( enteredValue < 1 || enteredValue >100 || isNaN(enteredValue)){
+        return false;
+    } else {
         return true;
-    } else if(a<1 || a>100){
-        wrongValue();
-        return true;
-    }else if (a === undefined || a === null){
-        wrongValue();
-        return true;
-    } else if ( !! x%1){
-        wrongValue();
-    } else
-    return false;
+    }
 }
 // ALERT WHEN THE ENTERED VALUE IS INVALID
 function wrongValue(){
-    gameCont.textContent = "THE ENTERED VALUE MUST BE A FLAT NUMBER BETWEEN 1 AND 100";
+    gameCont.textContent = "THE ENTERED VALUE MUST BE A NUMBER BETWEEN 1 AND 100";
 }
 // MAIN FUNCTION ON GAME START
 function gameStart(){
     const gridCount = document.querySelector("#gridsize").value
     clearGrid();
-    createGrid(gridCount);
-    document.querySelectorAll(".gridCell").forEach(item=>{
-        item.addEventListener("mouseover", function(event){
-            const randColor = randomRGB();
-            event.target.style.backgroundColor = randColor;
+    if(valueChecker(gridCount)){
+        createGrid(gridCount);
+        document.querySelectorAll(".gridCell").forEach(item=>{
+            item.addEventListener("mouseover", function(event){
+                const randColor = randomRGB();
+                event.target.style.backgroundColor = randColor;
+            })
         })
-    })
+    } else {
+        wrongValue();
+    }
     document.querySelector("#gridsize").value = "";
-
 }

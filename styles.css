@@ -94,6 +94,10 @@ body{
     border: 2px solid #a5a589;
     display: flex;
     flex-wrap: wrap;
+    color:#9c323c;
+    text-align: center;
+    font-size: 32px;
+    align-items: center;
 }
 .gridCell{
     color: yellow;
